@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8e8f0">
+  <title>pink tools — список преобразований</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page">
+    <header class="topbar">
+      <div class="brand-copy">
+        <h1>pink tools</h1>
+      </div>
+    </header>
+
+    <section class="intro">
+      <h2>Преобразователь <span>списков</span></h2>
+    </section>
+
+    <section class="workspace" aria-label="Преобразователь списков">
+      <div class="panel input-panel">
+        <div class="panel-heading">
+          <label for="inputText">Входные данные</label>
+          <button class="text-button" id="clearInput" type="button">Очистить</button>
+        </div>
+        <textarea id="inputText" placeholder="Вставь список строкой или столбиком…" spellcheck="false"></textarea>
+        <div class="input-meta"><span id="inputCount">0 элементов</span><span>формат определится автоматически</span></div>
+      </div>
+
+      <div class="settings-panel panel">
+        <div class="settings-title"><span class="settings-icon">✧</span> Настройки обработки</div>
+        <div class="setting-group">
+          <div class="group-title">Что сделать со списком</div>
+          <div class="checks">
+            <label class="check-row"><input type="checkbox" id="trim" checked><span class="checkmark"></span><span>Убрать пробелы по краям каждого значения</span></label>
+            <label class="check-row"><input type="checkbox" id="dedupe"><span class="checkmark"></span><span>Удалить повторяющиеся значения</span></label>
+            <label class="check-row"><input type="checkbox" id="sort"><span class="checkmark"></span><span>Отсортировать по алфавиту</span></label>
+          </div>
+        </div>
+        <div class="setting-group format-group">
+          <div class="group-title">Формат вывода</div>
+          <div class="format-options" role="group" aria-label="Формат вывода">
+            <label class="format-option"><input type="radio" name="format" value="line" checked><span>Строка</span></label>
+            <label class="format-option"><input type="radio" name="format" value="column"><span>Столбик</span></label>
+          </div>
+          <div id="delimiterSettings" class="delimiter-settings">
+            <div class="group-title">Разделитель результата <span class="optional-label">необязательно</span></div>
+            <div class="delimiter-presets" role="group" aria-label="Стандартный разделитель">
+              <button class="delimiter-btn" type="button" data-delimiter="," aria-pressed="false">Запятая ,</button>
+              <button class="delimiter-btn" type="button" data-delimiter=";" aria-pressed="false">Точка с запятой ;</button>
+              <button class="delimiter-btn" type="button" data-delimiter=":" aria-pressed="false">Двоеточие :</button>
+              <button class="delimiter-btn" type="button" data-delimiter="|" aria-pressed="false">Черта |</button>
+              <button class="delimiter-btn" type="button" data-delimiter=" " aria-pressed="false">Пробел</button>
+            </div>
+            <label class="group-title custom-delimiter-label" for="delimiter">Или свой разделитель</label>
+            <input id="delimiter" class="custom-delimiter visible" type="text" value="" aria-label="Свой разделитель" maxlength="30" placeholder="Необязательно">
+          </div>
+          <div class="wrapping-settings">
+            <label class="check-row wrap-toggle"><input type="checkbox" id="wrapItems"><span class="checkmark"></span><span>Добавить символы вокруг каждого значения</span></label>
+            <div class="wrap-fields" id="wrapFields">
+              <label>В начале<input id="prefix" type="text" value='"' maxlength="20"></label>
+              <label>В конце<input id="suffix" type="text" value='"' maxlength="20"></label>
+              <span class="wrap-example">Пример: "627327","37738282","7383"</span>
+            </div>
+          </div>
+        </div>
+        <button class="convert-button" id="convert" type="button">Преобразовать</button>
+      </div>
+
+      <div class="panel output-panel">
+        <div class="panel-heading">
+          <label for="outputText">Результат</label>
+          <span class="output-count" id="outputCount">—</span>
+        </div>
+        <textarea id="outputText" placeholder="Здесь появится результат…" spellcheck="false" readonly></textarea>
+        <div class="output-actions">
+          <button class="copy-button" id="copyOutput" type="button"><span>▣</span> Копировать результат</button>
+          <span class="copy-status" id="copyStatus" role="status"></span>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
