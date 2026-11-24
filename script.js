@@ -1,3 +1,36 @@
+
+// Цветовая тема сохраняется между посещениями.
+const themeToggle = document.getElementById('themeToggle');
+const themeOptions = document.getElementById('themeOptions');
+const themeChoices = [...document.querySelectorAll('.theme-option')];
+const themeNames = ['pink', 'vanilla', 'pistachio', 'blue', 'lavender', 'peach'];
+function applyTheme(theme) {
+  const safeTheme = themeNames.includes(theme) ? theme : 'pink';
+  document.documentElement.dataset.theme = safeTheme;
+  themeChoices.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.themeChoice === safeTheme)));
+  const swatches = { pink:'#e9b4cc', vanilla:'#eadb9b', pistachio:'#c9d9a9', blue:'#b9d7e8', lavender:'#d0c1e5', peach:'#e8c4aa' };
+  document.querySelector('.theme-dot').style.background = swatches[safeTheme];
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', ({pink:'#f8e8f0',vanilla:'#f8efc9',pistachio:'#e8f1d8',blue:'#e1eff7',lavender:'#eee7f7',peach:'#f8e9dc'})[safeTheme]);
+  try { localStorage.setItem('pink-tools-theme', safeTheme); } catch {}
+}
+try { applyTheme(localStorage.getItem('pink-tools-theme') || 'pink'); } catch { applyTheme('pink'); }
+themeToggle.addEventListener('click', () => {
+  const isOpen = !themeOptions.hidden;
+  themeOptions.hidden = isOpen;
+  themeToggle.setAttribute('aria-expanded', String(!isOpen));
+});
+themeChoices.forEach(button => button.addEventListener('click', () => {
+  applyTheme(button.dataset.themeChoice);
+  themeOptions.hidden = true;
+  themeToggle.setAttribute('aria-expanded', 'false');
+}));
+document.addEventListener('click', event => {
+  if (!event.target.closest('.theme-picker')) {
+    themeOptions.hidden = true;
+    themeToggle.setAttribute('aria-expanded', 'false');
+  }
+});
+
 const input = document.getElementById('inputText');
 const output = document.getElementById('outputText');
 const inputCount = document.getElementById('inputCount');
